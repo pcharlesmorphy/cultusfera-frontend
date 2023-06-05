@@ -110,7 +110,7 @@
 
                                               </td>
                                               <td>
-                                                <p-button [disabled]="(copy.status.status !== 'Disponible' && getLastCopyTransaction(copy.transactions)?.status?.type === 'Prestamo en curso')" label="Prestar"
+                                                <p-button [disabled]="(copy.status.status !== 'Disponible')" label="Prestar"
                                                 styleClass="p-button-sm raised p-button-success p-button-sm"
                                                 (onClick)="showLoanModal(copy)"
                                                 ></p-button>

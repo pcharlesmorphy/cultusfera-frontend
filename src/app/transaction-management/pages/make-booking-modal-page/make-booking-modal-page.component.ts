@@ -43,7 +43,7 @@ export class MakeBookingModalPageComponent {
 
     this.formToBooking();
     this.transactionService.addBooking(this.booking).subscribe ({
-      error: (e) => this.messageService.add({severity:'error',summary:'Error',detail:'La reserva no se ha podido realizar. Intente más tarde'}),
+      error: (e) => this.messageService.add({severity:'error',summary:'Error',detail:e.error}),
       complete: () => {
         this.messageService.add({severity:'success',summary:'Success',detail:'Reserva realizada con éxito'});
         this.newBookingForm.reset();
