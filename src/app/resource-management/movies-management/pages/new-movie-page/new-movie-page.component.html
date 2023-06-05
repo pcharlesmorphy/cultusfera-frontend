@@ -1,0 +1,122 @@
+<form class="form-body" [formGroup]="newMovieForm" autocomplete="off">
+  <p-toast></p-toast>
+  <p-card [header]="title">
+      <ng-template pTemplate="header">
+          <div class="card-header"></div>
+      </ng-template>
+
+      <div class="field">
+          <label for="title">Titulo</label>
+          <input type="text" pInputText
+              id="title"
+              formControlName="title"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+
+              />
+              <small *ngIf="isValidField('title')" id="title-help" class="p-error">{{ getFieldError('title') }}</small>
+      </div>
+
+
+
+      <div class="field">
+        <label for="director">Director</label>
+        <div id="director"
+            class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+
+            <p-dropdown
+                formControlName="director" [options]="directors" optionLabel="nameSelect" placeholder="Selecciona un director"
+                autoWidth="false" [style]="{'width':'20%'}" [filter]="true" filterBy="nameSelect" [showClear]="true"></p-dropdown>
+            <p-button (click)="showDirectorModal()" icon="pi pi-plus"></p-button>
+        </div>
+        <small *ngIf="isValidField('director')" id="director-help" class="p-error">{{ getFieldError('director') }}</small>
+      </div>
+
+      <p-dialog [(visible)]="isVisibleDirectorModal" [style]="{width: '50vw'}">
+        <app-new-director-page (onCreateDirector)="onCreateDirectorHandler($event)"></app-new-director-page>
+      </p-dialog>
+
+
+      <div class="field">
+        <label for="actors">Intérpretes</label>
+        <div id="actors"
+            class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+
+            <p-multiSelect [options]="actors" formControlName="actors" placeholder="Selecciona los actores"
+            optionLabel="nameSelect" display="chip" autoWidth="false" [style]="{'width':'20%'}">
+            </p-multiSelect>
+            <p-button (click)="showActorModal()" icon="pi pi-plus"></p-button>
+        </div>
+        <small *ngIf="isValidField('actors')" id="title-help" class="p-error">{{ getFieldError('actors') }}</small>
+      </div>
+
+      <p-dialog [(visible)]="isVisibleActorModal" [style]="{width: '50vw'}">
+        <app-new-actor-page (onCreateActor)="onCreateActorHandler($event)"></app-new-actor-page>
+      </p-dialog>
+
+
+
+      <div class="field">
+        <label for="genre">Género</label>
+        <div id="genre"
+            class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+            <p-dropdown formControlName="genre" [options]="genres" optionLabel="name" placeholder="Selecciona un género"
+            autoWidth="false" [style]="{'width':'20%'}" [filter]="true" filterBy="name" [showClear]="true"
+            ></p-dropdown>
+        </div>
+        <small *ngIf="isValidField('genre')" id="genres-help" class="p-error">{{ getFieldError('genre') }}</small>
+      </div>
+
+      <div class="field">
+        <label for="duration">Duración</label>
+        <p-inputNumber
+            id="duration"
+            class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full"
+            formControlName="duration" [showButtons]="true" ></p-inputNumber>
+            <small *ngIf="isValidField('duration')" id="genres-help" class="p-error">{{ getFieldError('duration') }}</small>
+      </div>
+
+
+      <div class="field">
+        <label for="language">Idioma</label>
+        <div id="language"
+            class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+            <p-dropdown
+                formControlName="language" [options]="languages" optionLabel="name" placeholder="Selecciona un idioma"
+                autoWidth="false" [style]="{'width':'20%'}"
+                [filter]="true" filterBy="name" [showClear]="true"></p-dropdown>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="pubYear">Año Publicación</label>
+        <div id="pubYear"
+            class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+            <p-calendar formControlName="pubYear" view="year" dateFormat="yy" [showIcon]="true"></p-calendar>
+        </div>
+        <small *ngIf="isValidField('pubYear')" id="pubYear-help" class="p-error">{{ getFieldError('pubYear') }}</small>
+      </div>
+
+      <div class="field">
+          <label for="synopsis">Sinopsis</label>
+          <div id="synopsis"
+              class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+              <textarea rows="8" cols="50" pInputTextarea formControlName="synopsis"></textarea>
+          </div>
+      </div>
+
+      <ng-template pTemplate="footer">
+          <div class="flex flex-row flex-wrap card-container blue-container gap-3">
+              <p-button
+              *ngIf="!isEdit"
+              type="submit" styleClass="p-button-success" label="Create"
+              (onClick)="saveMovie()"></p-button>
+              <p-button *ngIf="isEdit" label="Modify" styleClass="p-button-warning" (onClick)="updateMovie()"></p-button>
+              <p-button label="Clean" styleClass="p-button-danger" icon="pi pi-eraser" iconPos="left" (onClick)="resetForm()"></p-button>
+          </div>
+      </ng-template>
+  </p-card>
+</form>
+
+
+
+

@@ -1,0 +1,106 @@
+<form class="form-body" [formGroup]="newUserForm" autocomplete="off">
+  <p-toast></p-toast>
+  <p-card [header]="title">
+      <ng-template pTemplate="header">
+          <div class="card-header"></div>
+      </ng-template>
+
+      <div class="field">
+          <label for="name">Nombre</label>
+          <input type="text" pInputText
+              id="name"
+              formControlName="name"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+              <small *ngIf="isValidField('name')" id="name-help" class="p-error">{{ getFieldError('name') }}</small>
+      </div>
+
+      <div class="field">
+        <label for="surnames">Apellidos</label>
+        <input type="text" pInputText
+            id="surnames"
+            formControlName="surnames"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small *ngIf="isValidField('surnames')" id="surnames-help" class="p-error">{{ getFieldError('surnames') }}</small>
+      </div>
+
+      <div class="field">
+        <label for="address">Dirección</label>
+        <input type="text" pInputText
+            id="address"
+            formControlName="address"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small *ngIf="isValidField('address')" id="address-help" class="p-error">{{ getFieldError('address') }}</small>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" pInputText
+            id="email"
+            formControlName="email"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small *ngIf="isValidField('email')" id="email-help" class="p-error">{{ getFieldError('email') }}</small>
+      </div>
+
+      <div class="field">
+        <label for="nif">NIF</label>
+        <input type="text" pInputText
+            id="nif"
+            formControlName="nif"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small *ngIf="isValidField('nif')" id="nif-help" class="p-error">{{ getFieldError('nif') }}</small>
+      </div>
+
+      <div class="field">
+        <label for="phone">Teléfono</label>
+        <input type="text" pInputText
+            id="phone"
+            formControlName="phone"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small *ngIf="isValidField('phone')" id="phone-help" class="p-error">{{ getFieldError('phone') }}</small>
+      </div>
+
+      <div class="field">
+        <label for="username">Usuario</label>
+        <input type="text" pInputText
+            id="username"
+            formControlName="username"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small *ngIf="isValidField('username')" id="username-help" class="p-error">{{ getFieldError('username') }}</small>
+      </div>
+
+      <div class="field">
+        <label for="password">Contraseña</label>
+        <input type="password" pInputText
+            id="password"
+            formControlName="password"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small *ngIf="isValidField('password')" id="password-help" class="p-error">{{ getFieldError('password') }}</small>
+      </div>
+
+      <div class="field">
+        <label for="role">Rol Usuario</label>
+        <div id="role"
+            class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+            <p-dropdown formControlName="role" [options]="roles" optionLabel="type" placeholder="Selecciona un rol de usuario"></p-dropdown>
+        </div>
+        <small *ngIf="isValidField('role')" id="role-help" class="p-error">{{ getFieldError('role') }}</small>
+      </div>
+
+      <ng-template pTemplate="footer">
+          <div class="flex flex-row flex-wrap card-container blue-container gap-3">
+              <p-button
+              type="submit" styleClass="p-button-success" label="Create"
+              (onClick)="saveUser()"></p-button>
+              <p-button label="Clean" styleClass="p-button-danger" icon="pi pi-eraser" iconPos="left" (onClick)="resetForm()"></p-button>
+          </div>
+      </ng-template>
+  </p-card>
+</form>

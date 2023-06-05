@@ -1,0 +1,47 @@
+<div class="form-body">
+  <p-toast></p-toast>
+  <p-confirmDialog confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+  <p-card [header]="title">
+    <ng-template pTemplate="header">
+        <div class="card-header"></div>
+    </ng-template>
+        <p-table
+            [value]="publishers"
+            [paginator]="true"
+            [rows]="5"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10, 25, 50]"
+
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:20%">  Nombre</th>
+                    <th style="width:2%">        </th>
+                    <th style="width:2%">        </th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-publisher>
+                <tr>
+                    <td>{{ publisher.name }}</td>
+
+                    <td><p-button [routerLink]="'/gestion-recursos/libros/editoriales/editar'"
+                      [queryParams]="{id:publisher.id}"
+                      type="button"
+                      icon="pi pi-file-edit" styleClass="p-button-rounded p-button-help p-button-outlined"></p-button></td>
+                    <td><p-button type="button" icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-outlined" (onClick)="confirmDelete(publisher)"></p-button></td>
+
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="paginatorleft">
+                <p-button type="button" styleClass="p-button-text"></p-button>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+                <p-button type="button" styleClass="p-button-text"></p-button>
+            </ng-template>
+        </p-table>
+  </p-card>
+</div>

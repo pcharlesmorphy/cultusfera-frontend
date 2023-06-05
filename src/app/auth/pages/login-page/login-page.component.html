@@ -1,0 +1,28 @@
+<p-toast position="top-right"></p-toast>
+<form class="form-body" [formGroup]="loginForm">
+    <p-card [header]="title">
+        <ng-template pTemplate="header">
+            <div class="card-header"></div>
+        </ng-template>
+        <div class="field">
+            <label for="username">Usuario</label>
+            <input #username type="text" pInputText
+                id="username"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                formControlName="username"/>
+        </div>
+        <div class="field">
+            <label for="password">Contraseña</label>
+            <input #password type="password" pInputText
+                id="password"
+                class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                formControlName="password"/>
+        </div>
+        <ng-template pTemplate="footer">
+            <div class="flex flex-row flex-wrap card-container blue-container gap-3">
+                <p-button label="Login" icon="pi pi-check" iconPos="left" (click)="loginUser()"></p-button>
+                <p-button label="Clean" styleClass="p-button-danger" icon="pi pi-eraser" iconPos="left" (click)="resetForm()"></p-button>
+            </div>
+        </ng-template>
+    </p-card>
+</form>

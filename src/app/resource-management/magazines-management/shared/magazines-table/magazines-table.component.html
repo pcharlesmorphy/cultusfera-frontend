@@ -1,0 +1,78 @@
+<div class="form-body">
+  <p-toast></p-toast>
+  <p-confirmDialog confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+  <p-card [header]="title">
+    <ng-template pTemplate="header">
+        <div class="card-header"></div>
+    </ng-template>
+        <p-table
+            [value]="magazines"
+            [paginator]="true"
+            [rows]="5"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10, 25, 50]"
+
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:25%">  Nombre </th>
+                    <th style="width:5%">  Número </th>
+                    <th style="width:5%">  Mes </th>
+                    <th style="width:5%">   Año </th>
+                    <th style="width:10%">  Tema </th>
+                    <th style="width:10%">  Editorial</th>
+                    <th style="width:10%">   Idioma   </th>
+                    <th style="width:2%">        </th>
+                    <th style="width:2%">        </th>
+                    <th style="width:2%">        </th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-magazine>
+                <tr>
+                    <td>{{ magazine.title }}</td>
+                    <td>{{ magazine.numberMagazine}}</td>
+                    <td>{{ magazine.month.name }}</td>
+                    <td>{{ magazine.publishedYear }}</td>
+                    <td>{{ magazine.subject.name }}</td>
+                    <td>{{ magazine.publisher.name }}</td>
+                    <td>{{ magazine.language.name }}</td>
+
+                    <ng-container class="row" *ngIf="user.role.type === 'Librarian'; else client">
+                      <td><p-button [routerLink]="'/gestion-recursos/revistas/ver'"
+                        type="button" icon="pi pi-eye" styleClass="p-button-rounded p-button-info p-button-outlined" (onClick)="getDataMagazine(magazine)"></p-button></td>
+                      <td><p-button [routerLink]="'/gestion-recursos/revistas/editar'"
+                        [queryParams]="{id:magazine.id}"
+                        type="button"
+                        icon="pi pi-file-edit" styleClass="p-button-rounded p-button-help p-button-outlined"></p-button></td>
+                      <td><p-button type="button" icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-outlined" (onClick)="confirmDelete(magazine)"></p-button></td>
+                    </ng-container>
+
+                    <ng-template #client>
+                      <td><p-button [routerLink]="'/usuarios-biblioteca/ficha-revista'"
+                        type="button" icon="pi pi-eye" styleClass="p-button-rounded p-button-info p-button-outlined" (onClick)="getDataMagazine(magazine)"></p-button></td>
+                        <td><p-button [routerLink]="'/usuarios-biblioteca/nueva-review'"
+                          type="button" icon="pi pi-comment" styleClass="p-button-rounded p-button-info p-button-outlined" (onClick)="getDataResource(magazine)"></p-button></td>
+                    </ng-template>
+
+
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="paginatorleft">
+                <p-button type="button" styleClass="p-button-text"></p-button>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+                <p-button type="button" styleClass="p-button-text"></p-button>
+            </ng-template>
+        </p-table>
+  </p-card>
+</div>
+
+
+
+
+
+

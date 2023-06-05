@@ -1,0 +1,48 @@
+<form class="form-body" [formGroup]="newLoanForm" autocomplete="off">
+  <p-toast></p-toast>
+  <p-card [header]="title">
+      <ng-template pTemplate="header">
+          <div class="card-header"></div>
+      </ng-template>
+
+      <div class="field">
+        <label for="title">Fecha Inicial Préstamo</label>
+        <input type="text" pInputText readonly="readonly"
+            id="title"
+            formControlName="startDate"
+
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+       </div>
+
+     <div class="field">
+      <label for="title">Fecha Devolución</label>
+      <input type="text" pInputText readonly="readonly"
+          id="title"
+          formControlName="endDate"
+
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          />
+      </div>
+
+      <div class="field">
+        <label for="genre">Usuario</label>
+        <div id="genre"
+            class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+            <p-dropdown formControlName="users" [options]="users" optionLabel="nameSelect"
+            placeholder="Selecciona un usuario"
+            [filter]="true" filterBy="nameSelect"></p-dropdown>
+        </div>
+      </div>
+
+      <ng-template pTemplate="footer">
+          <div class="flex flex-row flex-wrap card-container blue-container gap-3">
+              <p-button
+              type="submit" styleClass="p-button-success" label="Prestar"
+              (onClick)="saveLoan()"></p-button>
+              <p-button label="Limpiar" styleClass="p-button-danger" icon="pi pi-eraser" iconPos="left" (onClick)="resetForm()"></p-button>
+          </div>
+      </ng-template>
+  </p-card>
+</form>
+

@@ -1,0 +1,128 @@
+<form class="form-body" [formGroup]="newBookForm" autocomplete="off">
+  <p-toast></p-toast>
+  <p-card [header]="title">
+      <ng-template pTemplate="header">
+          <div class="card-header"></div>
+      </ng-template>
+
+      <div class="field">
+          <label for="title">Titulo</label>
+          <input type="text" pInputText
+              id="title"
+              formControlName="title"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border
+              border-round appearance-none outline-none focus:border-primary w-full ng-invalid ng-dirty"
+              />
+
+              <small *ngIf="isValidField('title')" id="title-help" class="p-error">{{ getFieldError('title') }}</small>
+
+      </div>
+
+      <div class="field">
+        <label for="writers">Escritores</label>
+        <div id="writers"
+            class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+
+            <p-multiSelect [options]="writers" formControlName="writers"
+            optionLabel="nameSelect" display="chip" placeholder="Selecciona uno o varios escritores" autoWidth="false" [style]="{'width':'20%'}">
+            </p-multiSelect>
+            <p-button (click)="showWriterModal()" icon="pi pi-plus"></p-button>
+
+        </div>
+        <small *ngIf="isValidField('writers')" id="writers-help" class="p-error">{{ getFieldError('writers') }}</small>
+      </div>
+
+      <p-dialog [(visible)]="isVisibleWriterModal" [modal]="true" [style]="{width: '50vw'}">
+        <app-new-writer-page (onCreateWriter)="onCreateWriterHandler($event)"></app-new-writer-page>
+      </p-dialog>
+
+
+      <div class="field">
+        <label for="genre">Género</label>
+        <div id="genre"
+            class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+            <p-dropdown formControlName="genre" [options]="genres" optionLabel="name" placeholder="Selecciona un género"
+            [filter]="true" filterBy="name" [showClear]="true"></p-dropdown>
+
+        </div>
+        <small *ngIf="isValidField('genre')" id="genres-help" class="p-error">{{ getFieldError('genre') }}</small>
+      </div>
+
+      <div class="field">
+          <label for="isbn">ISBN</label>
+          <input type="text" pInputText
+              id="isbn"
+              formControlName="isbn"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+
+              <small *ngIf="isValidField('isbn')" id="isbn-help" class="p-error">{{ getFieldError('isbn') }}</small>
+      </div>
+
+      <div class="field">
+          <label for="publisher">Editorial</label>
+          <div id="publisher"
+              class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+              <p-dropdown
+                  formControlName="publisher" [options]="publishers" optionLabel="name" placeholder="Selecciona una Editorial"
+                  [filter]="true" filterBy="name" [showClear]="true" ></p-dropdown>
+                  <p-button (click)="showPublisherModal()" icon="pi pi-plus"></p-button>
+          </div>
+          <small *ngIf="isValidField('publisher')" id="publishers-help" class="p-error">{{ getFieldError('publisher') }}</small>
+      </div>
+
+      <p-dialog [(visible)]="isVisiblePublisherModal" [style]="{width: '30vw'}">
+        <app-new-book-publisher-page (onCreateBookPublisher) ="onCreateBookPublisherHandler($event)"></app-new-book-publisher-page>
+      </p-dialog>
+
+      <div class="field">
+        <label for="pages">Número de Páginas</label>
+        <p-inputNumber
+            id="pages"
+            class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full"
+            formControlName="pages" [showButtons]="true"></p-inputNumber>
+      </div>
+      <small *ngIf="isValidField('pages')" id="pages-help" class="p-error">{{ getFieldError('pages') }}</small>
+
+
+      <div class="field">
+        <label for="language">Idioma</label>
+        <div id="language"
+            class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+            <p-dropdown
+                formControlName="language" [options]="languages" optionLabel="name" placeholder="Selecciona un idioma"
+                [filter]="true" filterBy="name" [showClear]="true"></p-dropdown>
+        </div>
+        <small *ngIf="isValidField('language')" id="language-help" class="p-error">{{ getFieldError('language') }}</small>
+      </div>
+
+    <div class="field">
+      <label for="pubYear">Año Publicación</label>
+      <div id="pubYear"
+          class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+          <p-calendar formControlName="pubYear" view="year" dateFormat="yy" [showIcon]="true"></p-calendar>
+      </div>
+      <small *ngIf="isValidField('pubYear')" id="pubYear-help" class="p-error">{{ getFieldError('pubYear') }}</small>
+    </div>
+
+      <div class="field">
+          <label for="synopsis">Sinopsis</label>
+          <div id="synopsis"
+              class="text-base text-color surface-overlay appearance-none outline-none focus:border-primary w-full">
+              <textarea rows="8" cols="50" pInputTextarea formControlName="synopsis"></textarea>
+          </div>
+      </div>
+
+      <ng-template pTemplate="footer">
+          <div class="flex flex-row flex-wrap card-container blue-container gap-3">
+              <p-button
+              *ngIf="!isEdit"
+              type="submit" styleClass="p-button-success" label="Create"
+              (onClick)="saveBook()"></p-button>
+              <p-button *ngIf="isEdit" label="Modify" styleClass="p-button-warning" (onClick)="updateBook()"></p-button>
+              <p-button label="Clean" styleClass="p-button-danger" icon="pi pi-eraser" iconPos="left" (onClick)="resetForm()"></p-button>
+          </div>
+      </ng-template>
+  </p-card>
+</form>
+

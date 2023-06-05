@@ -1,0 +1,68 @@
+<form class="form-body" [formGroup]="searchAlbumForm" autocomplete="off">
+  <p-toast></p-toast>
+  <p-card [header]="title">
+      <ng-template pTemplate="header">
+          <div class="card-header"></div>
+      </ng-template>
+
+      <div class="flex flex-wrap gap-3 mb-6">
+
+        <div *ngFor="let criterion of searchCriteria" class="flex align-items-center">
+
+          <p-radioButton [inputId]="criterion.key" [value]="criterion" formControlName="searchKey" (onClick)="changeSelectedCriterion()"></p-radioButton>
+          <label [for]="criterion.key" class="ml-2">{{ criterion.value }}</label>
+
+        </div>
+      </div>
+
+      <div class="flex-column mb-6" *ngIf="!isDropDownOptionSelected;else genreDropDown">
+        <div class="flex-column mb-3">
+          <label for="inputSearch" class="flex-column mb-3"> Inserta el texto</label>
+        </div>
+        <input type="text" pInputText
+            id="inputSearch"
+            formControlName="searchText"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+      </div>
+
+      <div class="flex-column mb-6">
+        <ng-template #genreDropDown>
+        <div class="flex-column mb-3">
+
+          <label for="inputSearch" class="flex-column mb-3"> Escoge un género </label>
+        </div>
+          <p-dropdown [options]="genres" formControlName="selectGenre" optionLabel="name" placeholder="Seleccione un género"></p-dropdown>
+        </ng-template>
+      </div>
+
+      <ng-template pTemplate="footer">
+        <div class="flex flex-row flex-wrap card-container blue-container gap-3">
+            <p-button type="submit" styleClass="p-button-success" label="Buscar" (onClick)="onSearch()"></p-button>
+
+            <p-button label="Clean" styleClass="p-button-danger" icon="pi pi-eraser" iconPos="left"></p-button>
+        </div>
+      </ng-template>
+  </p-card>
+
+  <ng-container class="row" *ngIf="searchResult; else withoutResults">
+    <shared-albums-table [user]="this.user" [title]="title" [albums]="albums"></shared-albums-table>
+  </ng-container>
+  <ng-template #withoutResults>
+   <p-messages [(value)]="messageWithoutResults" [enableService]="false" [closable]="false"></p-messages>
+  </ng-template>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+

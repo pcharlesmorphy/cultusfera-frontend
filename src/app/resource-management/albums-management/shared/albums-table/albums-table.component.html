@@ -1,0 +1,77 @@
+<div class="form-body">
+  <p-toast></p-toast>
+  <p-confirmDialog confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+  <p-card [header]="title">
+    <ng-template pTemplate="header">
+        <div class="card-header"></div>
+    </ng-template>
+        <p-table
+            [value]="albums"
+            [paginator]="true"
+            [rows]="5"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10, 25, 50]"
+
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:20%">  Titulo</th>
+                    <th style="width:20%">  Músico</th>
+                    <th style="width:3%">   Duración</th>
+                    <th style="width:10%">  Género</th>
+                    <th style="width:1%">        </th>
+                    <th style="width:1%">        </th>
+                    <th style="width:1%">        </th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-album>
+                <tr>
+                    <td>{{ album.title }}</td>
+                    <td>{{ album.musician.name }} {{ album.musician.surnames }} </td>
+                    <td>{{ album.duration }}</td>
+                    <td>{{ album.genre.name }}</td>
+
+                    <ng-container class="row" *ngIf="user.role.type === 'Librarian'; else client">
+                      <td><p-button [routerLink]="'/gestion-recursos/albumes/ver'"
+                        type="button" icon="pi pi-eye" styleClass="p-button-rounded p-button-info p-button-outlined" (onClick)="getDataMovie(album)"></p-button></td>
+                      <td><p-button [routerLink]="'/gestion-recursos/albumes/editar'"
+                        [queryParams]="{id:album.id}"
+                        type="button"
+                        icon="pi pi-file-edit" styleClass="p-button-rounded p-button-help p-button-outlined"></p-button></td>
+                      <td><p-button type="button" icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-outlined" (onClick)="confirmDelete(album)"></p-button></td>
+
+                    </ng-container>
+
+                    <ng-template #client>
+                      <td><p-button [routerLink]="'/usuarios-biblioteca/ficha-album'"
+                        type="button" icon="pi pi-eye" styleClass="p-button-rounded p-button-info p-button-outlined" (onClick)="getDataMovie(album)"></p-button></td>
+                        <td><p-button [routerLink]="'/usuarios-biblioteca/nueva-review'"
+                          type="button" icon="pi pi-comment" styleClass="p-button-rounded p-button-info p-button-outlined" (onClick)="getDataResource(album)"></p-button></td>
+                    </ng-template>
+
+
+
+
+
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="paginatorleft">
+                <p-button type="button" styleClass="p-button-text"></p-button>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+                <p-button type="button" styleClass="p-button-text"></p-button>
+            </ng-template>
+        </p-table>
+  </p-card>
+</div>
+
+
+
+
+
+
+

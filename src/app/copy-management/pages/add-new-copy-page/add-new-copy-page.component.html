@@ -1,0 +1,106 @@
+
+
+<div class="form-body">
+  <p-toast></p-toast>
+  <p-confirmDialog confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+  <p-card [header]="title">
+    <ng-template pTemplate="header">
+        <div class="card-header"></div>
+    </ng-template>
+    <p-table
+    #dt1
+    [value]="resources"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [loading]="loading"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['title']"
+>
+    <ng-template pTemplate="caption">
+        <div class="flex">
+            <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value,'contains')" placeholder="Search Title" />
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="min-width:15rem">
+                <div class="flex align-items-center">
+                    Título
+                    <p-columnFilter type="text" field="title" display="menu"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+                <div class="flex align-items-center">
+                    Año de Publicación
+                    <p-columnFilter type="text" field="pubYear" display="menu"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:15rem">
+              <div class="flex align-items-center">
+                  Tipo de Recurso
+                  <p-columnFilter type="text" field="pubYear" display="menu"></p-columnFilter>
+              </div>
+          </th>
+            <th style="width:5%">
+
+            </th>
+            <th style="width:5%">
+
+            </th>
+
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-resource let-expanded="expanded">
+        <tr>
+            <td>
+                {{ resource.title }}
+            </td>
+            <td>
+                {{ resource.publishedYear }}
+            </td>
+            <td>
+              {{ resource.type }}
+          </td>
+            <td>
+              <p-button
+                  type="button"
+                  icon="pi pi-eye" styleClass="p-button-rounded p-button-info p-button-outlined"
+                  (onClick)="showCopiesModal(resource.id)"></p-button>
+            </td>
+              <p-dialog [(visible)]="isVisibleCopiesModal"
+                [style]="{width: '60vw',height:'30vw'}"
+                *ngIf="isVisibleCopiesModal"
+                >
+                <app-view-copies-resource-modal [copies]="this.copies"></app-view-copies-resource-modal>
+              </p-dialog>
+
+            <td>
+                <p-button
+                    type="button"
+                    icon="pi pi-plus" styleClass="p-button-rounded p-button-help p-button-outlined"
+                    (onClick)="showNewCopyModal(resource)"></p-button>
+            </td>
+
+            <p-dialog [(visible)]="isVisibleNewCopyModal" [style]="{width: '50vw'}">
+                <app-add-new-copy-modal [resource]="this.selectedResource"></app-add-new-copy-modal>
+            </p-dialog>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="7">No resources found.</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+  </p-card>
+</div>

@@ -1,0 +1,102 @@
+<form class="form-body" [formGroup]="updateUserForm" autocomplete="off">
+  <p-toast></p-toast>
+  <p-card [header]="title">
+      <ng-template pTemplate="header">
+          <div class="card-header"></div>
+      </ng-template>
+
+      <div class="field">
+          <label for="name">Nombre</label>
+          <input type="text" pInputText readonly="readonly" [type]=""
+              id="name"
+              formControlName="name"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              />
+      </div>
+
+      <div class="field">
+        <label for="surnames">Apellidos</label>
+        <input type="text" pInputText readonly="readonly"
+            id="surnames"
+            formControlName="surnames"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+      </div>
+
+      <div class="field">
+        <label for="address">Dirección</label>
+        <input type="text" pInputText
+            id="address"
+            formControlName="address"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small *ngIf="isValidField('address')" id="address-help" class="p-error">{{ getFieldError('address') }}</small>
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" pInputText
+            id="email"
+            formControlName="email"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small *ngIf="isValidField('email')" id="email-help" class="p-error">{{ getFieldError('email') }}</small>
+      </div>
+
+      <div class="field">
+        <label for="nif">NIF</label>
+        <input type="text" pInputText
+            id="nif"
+            formControlName="nif" readonly="readonly"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small *ngIf="isValidField('nif')" id="nif-help" class="p-error">{{ getFieldError('nif') }}</small>
+      </div>
+
+      <div class="field">
+        <label for="phone">Teléfono</label>
+        <input type="text" pInputText
+            id="phone"
+            formControlName="phone"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+            <small *ngIf="isValidField('phone')" id="phone-help" class="p-error">{{ getFieldError('phone') }}</small>
+      </div>
+
+      <div class="field">
+        <label for="username">Usuario</label>
+        <input type="text" pInputText readonly="readonly"
+            id="username"
+            formControlName="username"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+      </div>
+
+      <div class="field">
+        <label for="title">Fecha de Registro</label>
+        <input type="text" pInputText readonly="readonly"
+            id="title"
+            formControlName="regDate"
+
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            />
+       </div>
+
+      <ng-template pTemplate="footer">
+          <div class="flex flex-row flex-wrap card-container blue-container gap-3">
+              <p-button
+              type="submit" styleClass="p-button-success" label="Actualizar"
+              (onClick)="updateUser()"></p-button>
+              <p-button
+            type="submit" styleClass="p-button-warning" label="Cambiar Password"
+            (onClick)="showChangeUserPasswordModal()"></p-button>
+          </div>
+      </ng-template>
+      <p-dialog [(visible)]="isVisibleChangePasswordModal" [style]="{width: '50vw'}">
+        <app-change-user-password-modal-page></app-change-user-password-modal-page>
+      </p-dialog>
+
+
+  </p-card>
+</form>
+

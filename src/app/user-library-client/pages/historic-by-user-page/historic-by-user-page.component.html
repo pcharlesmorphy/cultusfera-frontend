@@ -1,0 +1,9 @@
+
+  <ng-container class="row" *ngIf="searchResult; else withoutResults">
+    <shared-transactions-table [title]="title" [transactions]="transactions"></shared-transactions-table>
+  </ng-container>
+  <ng-template #withoutResults>
+   <p-messages [(value)]="messageWithoutResults" [enableService]="false" [closable]="false"></p-messages>
+  </ng-template>
+
+

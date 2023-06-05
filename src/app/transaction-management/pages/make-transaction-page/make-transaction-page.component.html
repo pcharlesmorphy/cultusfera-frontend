@@ -1,0 +1,145 @@
+    <div class="form-body">
+      <p-toast></p-toast>
+      <p-confirmDialog confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+          <p-card [header]="title">
+                  <ng-template pTemplate="header">
+                      <div class="card-header"></div>
+                  </ng-template>
+                  <div class="card">
+                    <p-table
+                    #dt1
+                    [value]="resources"
+                    dataKey="name"
+                    [tableStyle]="{ 'min-width': '60rem' }"
+                    [rows]="5"
+                    [showCurrentPageReport]="true"
+                    [rowsPerPageOptions]="[5, 10, 25]"
+                    [loading]="loading"
+                    [paginator]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [globalFilterFields]="['title']"
+                    >
+                    <ng-template pTemplate="caption">
+                      <div class="flex">
+                          <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+                          <span class="p-input-icon-left ml-auto">
+                              <i class="pi pi-search"></i>
+                              <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value,'contains')" placeholder="Search Title" />
+                          </span>
+                      </div>
+                  </ng-template>
+
+                  <ng-template pTemplate="header">
+                      <tr>
+                          <th style="width: 5rem"></th>
+                          <th pSortableColumn="title">Título <p-sortIcon field="title"></p-sortIcon></th>
+                          <th pSortableColumn="pubYear">Año Publicación <p-sortIcon field="pubYear"></p-sortIcon></th>
+                          <th pSortableColumn="type">Tipo Recurso <p-sortIcon field="type"></p-sortIcon></th>
+
+                      </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-resource let-expanded="expanded">
+                      <tr>
+                          <td>
+                              <button type="button" pButton pRipple [pRowToggler]="resource" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                          </td>
+                          <td>{{ resource.title }}</td>
+                          <td>{{ resource.publishedYear}}</td>
+                          <td>{{ resource.type}}</td>
+
+                      </tr>
+                  </ng-template>
+                  <ng-template pTemplate="rowexpansion" let-resource>
+                      <tr>
+                          <td colspan="7">
+                              <div class="p-3">
+                                  <p-table [value]="resource.copies" dataKey="id">
+                                      <ng-template pTemplate="header">
+                                          <tr>
+                                              <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
+                                              <th pSortableColumn="amount">Localización<p-sortIcon field="amount"></p-sortIcon></th>
+                                              <th pSortableColumn="status">Estado Copia<p-sortIcon field="status"></p-sortIcon></th>
+                                              <th pSortableColumn="startDate">Estado de la Transacción de la Copia<p-sortIcon field="startDate"></p-sortIcon></th>
+                                              <th pSortableColumn="endDate">Fecha Fin Préstamo<p-sortIcon field="endDate"></p-sortIcon></th>
+                                              <th pSortableColumn="user">Usuario<p-sortIcon field="user"></p-sortIcon></th>
+
+
+                                              <th></th>
+                                              <th>Acciones</th>
+                                              <th></th>
+                                              <th></th>
+                                          </tr>
+                                      </ng-template>
+                                      <ng-template pTemplate="body" let-copy>
+                                          <tr>
+                                              <td>{{ copy.id }}</td>
+                                              <td>{{ copy.location.name }}</td>
+
+
+                                              <td>
+                                                <p-tag [value]="copy.status.status" [severity]="getStatusSeverity(copy.status.status)!"></p-tag>
+                                              </td>
+
+
+                                              <td>{{ getLastCopyTransaction(copy.transactions)?.status?.type}}</td>
+
+                                              <ng-container *ngIf="copy.status.status !== 'Disponible'; else withoutText">
+                                                    <td>{{ getLastCopyTransaction(copy.transactions)?.endDate}}</td>
+                                                    <td>{{ getUserById(getLastCopyTransaction(copy.transactions)?.userId!)}}</td>
+                                              </ng-container>
+                                              <ng-template #withoutText>
+                                                    <td></td>
+                                                    <td></td>
+                                              </ng-template>
+
+
+                                              <td>
+                                                <ng-container *ngIf="copy.status.status !=='Reservado' ;else activeBooking">
+                                                  <td>  <p-button (onClick)="showBookingModal(copy)"
+                                                    type="button" [disabled]="copy.status.status==='Disponible'"  label="Reservar" styleClass="p-button-raised p-button-warning p-button-sm"
+                                                    ></p-button></td>
+                                                </ng-container>
+                                                <ng-template #activeBooking>
+                                                  <td>  <p-button (onClick)="deleteBooking(copy)"
+                                                    type="button" label="Cancelar Reserva" styleClass="p-button-raised p-button-warning p-button-sm"
+                                                    ></p-button></td>
+                                                </ng-template>
+                                                 <p-dialog [(visible)]="isVisibleBookingModal" [style]="{width: '50vw',height:'35vw'}">
+                                                  <app-make-booking-modal-page (onUpdateBooking)="handleTransactionUpdate()" [copy]="selectedCopy" [users]="users"></app-make-booking-modal-page>
+                                                </p-dialog>
+
+                                              </td>
+                                              <td>
+                                                <p-button [disabled]="(copy.status.status !== 'Disponible' && getLastCopyTransaction(copy.transactions)?.status?.type === 'Prestamo en curso')" label="Prestar"
+                                                styleClass="p-button-sm raised p-button-success p-button-sm"
+                                                (onClick)="showLoanModal(copy)"
+                                                ></p-button>
+                                              </td>
+                                                <p-dialog [(visible)]="isVisibleLoanModal" [style]="{width: '50vw',height:'35vw'}">
+                                                    <app-make-loan-modal-page (onUpdateLoan)="handleTransactionUpdate()" [copy]="selectedCopy" [users]="users"></app-make-loan-modal-page>
+                                                </p-dialog>
+
+                                              <td>
+                                                <p-button [disabled]="copy.status.status === 'Disponible'" label="Devolver"
+                                                styleClass="p-button-sm raised p-button-info p-button-sm"
+                                                (onClick)="returnLoan(copy.transactions)"
+                                                ></p-button>
+                                              </td>
+
+                                          </tr>
+                                      </ng-template>
+
+                                      <ng-template pTemplate="emptymessage">
+                                          <tr>
+                                              <td colspan="6">Este recurso aún no tiene ninguna copia.</td>
+                                          </tr>
+                                      </ng-template>
+                                  </p-table>
+                              </div>
+                          </td>
+                      </tr>
+                  </ng-template>
+              </p-table>
+            </div>
+        </p-card>
+</div>

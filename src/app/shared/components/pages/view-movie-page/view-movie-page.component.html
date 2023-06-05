@@ -1,0 +1,127 @@
+<div class="form-body">
+  <p-toast></p-toast>
+  <p-confirmDialog confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+  <p-card [header]="title">
+    <ng-template pTemplate="header">
+      <div class="card-header"></div>
+    </ng-template>
+
+        <p-card [header]="movie.title" class="p-d-flex p-flex-column p-jc-center" [style]="{ width: '1220px',height:'750px',background:'#ebf5fb '}">
+        <ng-template pTemplate="header">
+
+        </ng-template>
+
+        <div class="grid">
+
+            <div class="col-8">
+              <div class="etiqueta">Director:</div>
+              <div class="etiqueta">Intérpretes:</div>
+              <div class="etiqueta">Género:</div>
+              <div class="etiqueta">Duración:</div>
+              <div class="etiqueta">Año Publicación:</div>
+              <div class="etiqueta">Idioma:</div>
+            </div>
+
+            <div class="col-4">
+              <div class="contenido">{{ movie.director.name + ' ' + movie.director.surnames }}</div>
+              <div class="contenido" *ngFor="let actor of movie.actors">{{ actor.name + ' ' + actor.surnames}}</div>
+              <div class="contenido">{{ movie.genre.name }}</div>
+              <div class="contenido">{{ movie.duration }}</div>
+              <div class="contenido">{{ movie.publishedYear }}</div>
+              <div class="contenido">{{ movie.language.name }}</div>
+            </div>
+          </div>
+
+          <h4>Sinopsis</h4>
+          <div class="synopsis-container">{{ movie.synopsis }}</div>
+
+
+        <ng-template pTemplate="footer">
+
+        </ng-template>
+
+
+      </p-card>
+
+      <p-card [header]="titleCopy">
+            <ng-template pTemplate="header">
+              <div class="card-header"></div>
+            </ng-template>
+
+          <p-table [value]="copies" [tableStyle]="{ 'min-width': '40rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Id</th>
+                    <th>Fecha Alta</th>
+                    <th>Fecha Baja</th>
+                    <th>Estado</th>
+                    <th>Localización</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-copy>
+                <tr>
+                    <td> {{copy.id}}</td>
+                    <td> {{copy.registrationDate | date}}</td>
+                    <td> {{copy.dismissalDate | date}}</td>
+                    <td>   {{copy.status.status}}</td>
+                    <td>   {{copy.location.name}}</td>
+                    <ng-container *ngIf="copy.status.status !=='Reservado' ;else activeBooking">
+                      <td>  <p-button *ngIf="this.user.role.type === 'User'" (onClick)="saveBooking(copy)"
+                        [disabled]="copy.status.status==='Disponible'" type="button" label="Reservar" styleClass="p-button-raised p-button-warning p-button-sm"
+                        ></p-button></td>
+                    </ng-container>
+                    <ng-template #activeBooking>
+                      <td>  <p-button *ngIf="this.user.role.type === 'User' && checkBookingUser(copy)"  (onClick)="deleteBooking(copy)"
+                        type="button" label="Cancelar Reserva" styleClass="p-button-raised p-button-warning p-button-sm"
+                        ></p-button></td>
+                    </ng-template>
+                </tr>
+            </ng-template>
+            </p-table>
+      </p-card>
+
+
+      <p-card [header]="titleComment">
+        <ng-template pTemplate="header">
+          <div class="card-header"></div>
+        </ng-template>
+
+
+        <p-dataView #dv [value]="movie.reviews!" [rows]="3" [paginator]="true">
+          <ng-template let-review pTemplate="listItem">
+              <div class="col-12">
+                  <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+                      <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                          <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                              <div class="text-2xl font-semibold text-900">{{review.title}}</div>
+                              <p-rating [(ngModel)]="review.rating" [readonly]="true" [stars]="10" [cancel]="false"></p-rating>
+                              <span class="font-semibold">{{ review.date }}</span>
+
+                              <div class="flex align-items-center gap-3">
+                                  <span class="flex align-items-center gap-2">
+                                      <i class="pi pi-user"></i>
+                                      <span class="font-semibold">{{ review.username }}</span>
+                                  </span>
+
+                              </div>
+                          </div>
+                          <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                            <div class="justify-content-center">
+                              {{ review.comment }}
+                            </div>
+
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </ng-template>
+      </p-dataView>
+
+
+  </p-card>
+
+  </p-card>
+
+</div>

@@ -1,0 +1,81 @@
+
+<div class="form-body">
+  <p-toast></p-toast>
+  <p-confirmDialog confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+  <p-card [header]="title">
+    <ng-template pTemplate="header">
+        <div class="card-header"></div>
+    </ng-template>
+        <p-table
+            [value]="books"
+            [paginator]="true"
+            [rows]="5"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10, 25, 50]"
+
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:20%">  Titulo</th>
+                    <th style="width:20%">  Autor</th>
+                    <th style="width:10%">  ISBN</th>
+                    <th style="width:3%">   Páginas</th>
+                    <th style="width:10%">  Editorial</th>
+                    <th style="width:10%">  Género</th>
+                    <th style="width:3%">  Idioma</th>
+                    <th style="width:1%">        </th>
+                    <th style="width:1%">        </th>
+                    <th style="width:1%">        </th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-book>
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.writers.at(0)!.surnames + ', ' + book.writers.at(0)!.name}}</td>
+                    <td>{{ book.isbn }}</td>
+                    <td>{{ book.pages }}</td>
+                    <td>{{ book.publisher.name }}</td>
+                    <td>{{ book.genre.name }}</td>
+                    <td>{{ book.language.name }}</td>
+
+                    <ng-container class="row" *ngIf="user.role.type === 'Librarian'; else client">
+                      <td><p-button [routerLink]="'/gestion-recursos/libros/ver'"
+                        type="button" icon="pi pi-eye" styleClass="p-button-rounded p-button-info p-button-outlined" (onClick)="getDataBook(book)"></p-button></td>
+                      <td><p-button [routerLink]="'/gestion-recursos/libros/editar'"
+                        [queryParams]="{id:book.id}"
+                        type="button"
+                        icon="pi pi-file-edit" styleClass="p-button-rounded p-button-help p-button-outlined"></p-button></td>
+                      <td><p-button type="button" icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-outlined" (onClick)="confirmDelete(book)"></p-button></td>
+                    </ng-container>
+
+                    <ng-template #client>
+                      <td><p-button [routerLink]="'/usuarios-biblioteca/ficha-libro'"
+                        type="button" icon="pi pi-eye" styleClass="p-button-rounded p-button-info p-button-outlined" (onClick)="getDataBook(book)"></p-button></td>
+                        <td><p-button [routerLink]="'/usuarios-biblioteca/nueva-review'"
+                          type="button" icon="pi pi-comment" styleClass="p-button-rounded p-button-info p-button-outlined" (onClick)="getDataResource(book)"></p-button></td>
+                    </ng-template>
+
+
+
+
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="paginatorleft">
+                <p-button type="button" styleClass="p-button-text"></p-button>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+                <p-button type="button" styleClass="p-button-text"></p-button>
+            </ng-template>
+        </p-table>
+  </p-card>
+</div>
+
+
+
+
+
+

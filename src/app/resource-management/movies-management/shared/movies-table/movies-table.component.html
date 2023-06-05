@@ -1,0 +1,76 @@
+<div class="form-body">
+  <p-toast></p-toast>
+  <p-confirmDialog confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+  <p-card [header]="title">
+    <ng-template pTemplate="header">
+        <div class="card-header"></div>
+    </ng-template>
+        <p-table
+            [value]="movies"
+            [paginator]="true"
+            [rows]="5"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10, 25, 50]"
+
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:20%">  Titulo</th>
+                    <th style="width:20%">  Director</th>
+                    <th style="width:10%">  Actores</th>
+                    <th style="width:3%">   Duración</th>
+                    <th style="width:10%">  Género</th>
+                    <th style="width:3%">  Idioma</th>
+                    <th style="width:1%">        </th>
+                    <th style="width:1%">        </th>
+                    <th style="width:1%">        </th>
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-movie>
+                <tr>
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.director.surnames + ', ' + movie.director.name }}</td>
+                    <td>{{ movie.actors.at(0)!.surnames + ', ' + movie.actors.at(0)!.name}}</td>
+                    <td>{{ movie.duration }}</td>
+                    <td>{{ movie.genre.name }}</td>
+                    <td>{{ movie.language.name }}</td>
+
+                    <ng-container class="row" *ngIf="user.role.type === 'Librarian'; else client">
+                      <td><p-button [routerLink]="'/gestion-recursos/peliculas/ver'"
+                        type="button" icon="pi pi-eye" styleClass="p-button-rounded p-button-info p-button-outlined" (onClick)="getDataMovie(movie)"></p-button></td>
+                      <td><p-button [routerLink]="'/gestion-recursos/peliculas/editar'"
+                        [queryParams]="{id:movie.id}"
+                        type="button"
+                        icon="pi pi-file-edit" styleClass="p-button-rounded p-button-help p-button-outlined"></p-button></td>
+                      <td><p-button type="button" icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-outlined" (onClick)="confirmDelete(movie)"></p-button></td>
+                    </ng-container>
+
+                    <ng-template #client>
+                      <td><p-button [routerLink]="'/usuarios-biblioteca/ficha-pelicula'"
+                        type="button" icon="pi pi-eye" styleClass="p-button-rounded p-button-info p-button-outlined" (onClick)="getDataMovie(movie)"></p-button></td>
+                        <td><p-button [routerLink]="'/usuarios-biblioteca/nueva-review'"
+                          type="button" icon="pi pi-comment" styleClass="p-button-rounded p-button-info p-button-outlined" (onClick)="getDataResource(movie)"></p-button></td>
+                    </ng-template>
+
+
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="paginatorleft">
+                <p-button type="button" styleClass="p-button-text"></p-button>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+                <p-button type="button" styleClass="p-button-text"></p-button>
+            </ng-template>
+        </p-table>
+  </p-card>
+</div>
+
+
+
+
+
+

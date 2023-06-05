@@ -1,0 +1,61 @@
+<div class="form-body">
+  <p-toast></p-toast>
+  <p-confirmDialog confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+  <p-card [header]="title">
+    <ng-template pTemplate="header">
+        <div class="card-header"></div>
+    </ng-template>
+        <p-table
+            [value]="transactions"
+            dataKey="name"
+            [paginator]="true"
+            [rows]="5"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[10, 25, 50]">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:20%">Titulo Copia</th>
+                    <th style="width:12%">Año Publicación</th>
+                    <th style="width:10%">Tipo Recurso</th>
+                    <th style="width:12%">  Localización Copia </th>
+                    <th pSortableColumn="startDate" style="width:15%">  Fecha Inicio <p-sortIcon field="startDate"></p-sortIcon></th>
+                    <th pSortableColumn="endDate" style="width:15%">  Fecha Fin <p-sortIcon field="endDate"></p-sortIcon></th>
+                    <th style="width:10%">   Usuario </th>
+                    <th style="width:10%">  Estado </th>
+                    <th style="width:1%">        </th>
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-transaction>
+                <tr>
+                    <td>{{ transaction.resourceTitle }}</td>
+                    <td>{{ transaction.publishedYear }}</td>
+                    <td>{{ transaction.resourceType }}</td>
+                    <td>{{ transaction.resourceLocation }}</td>
+                    <td>{{ transaction.startDate }}</td>
+                    <td>{{ transaction.endDate }}</td>
+                    <td>{{ transaction.user }}</td>
+                    <td>{{ transaction.transactionStatus }}</td>
+                    <td></td>
+                    <td></td>
+
+
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="paginatorleft">
+                <p-button type="button" styleClass="p-button-text"></p-button>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+                <p-button type="button" styleClass="p-button-text"></p-button>
+            </ng-template>
+        </p-table>
+  </p-card>
+</div>
+
+
+
