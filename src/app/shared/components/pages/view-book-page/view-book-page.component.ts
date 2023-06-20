@@ -24,6 +24,7 @@ export class ViewBookPageComponent implements OnInit{
     public title:string='Ficha Libro';
     public titleCopy:string='Copias';
     public titleComment:string='Comentarios';
+    public averageRating:number;
 
     public onUpdateBooking: EventEmitter<void> = new EventEmitter<void>;
 
@@ -37,6 +38,8 @@ export class ViewBookPageComponent implements OnInit{
       this.book = dataBook.getBook;
       this.copies = this.book.copies!;
       this.user = JSON.parse(sessionStorage.getItem('loggedInUser')!);
+      this.averageRating = this.book.rating!;
+      console.log(this.book.reviews);
 
     }
 

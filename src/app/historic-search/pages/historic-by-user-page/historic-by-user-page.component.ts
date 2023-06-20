@@ -41,7 +41,7 @@ export class HistoricByUserPageComponent {
           if (resp.length > 0) {
               this.searchResult=true;
               this.transactions = resp;
-              this.title = `Histórico de Préstamos de ${this.transactions[0].resourceTitle}`;
+              this.title = `Histórico de Préstamos de ${this.selectedUser.name} ${this.selectedUser.surnames}`;
           }
         }
     });
@@ -53,7 +53,7 @@ export class HistoricByUserPageComponent {
           if (resp.length > 0) {
               this.searchResult=true;
               this.transactions = resp;
-              this.title = `Préstamos en curso de ${this.transactions[0].resourceTitle}`;
+              this.title = `Préstamos en curso de ${this.selectedUser.name} ${this.selectedUser.surnames}`;
           }
         }
     });

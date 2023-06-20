@@ -14,7 +14,8 @@ import { AlbumService } from 'src/app/resource-management/albums-management/serv
   styleUrls: ['./view-album-page.component.css']
 })
 export class ViewAlbumPageComponent implements OnInit{
-  public album:Album;
+
+  public album!:Album;
   public list:Album[]=[];
   public user!:User;
   public copy!:Copy;
@@ -23,6 +24,7 @@ export class ViewAlbumPageComponent implements OnInit{
   public title:string='Ficha Album';
   public titleCopy:string='Copias';
   public titleComment:string='Comentarios';
+  public averageRating:number;
   public onUpdateBooking: EventEmitter<void> = new EventEmitter<void>;
 
   constructor(
@@ -34,6 +36,8 @@ export class ViewAlbumPageComponent implements OnInit{
     this.album = dataAlbum.getAlbum;
     this.user = JSON.parse(sessionStorage.getItem('loggedInUser')!);
     this.copies = this.album.copies!;
+    this.averageRating = this.album.rating!;
+    console.log(this.album.reviews);
   }
 
   ngOnInit(): void {

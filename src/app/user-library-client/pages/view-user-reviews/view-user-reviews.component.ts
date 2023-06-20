@@ -4,7 +4,6 @@ import { User } from 'src/app/user-management/interface/User.interface';
 import { ReviewService } from '../../services/review.service';
 import { MessageService, ConfirmationService, ConfirmEventType } from 'primeng/api';
 import { DataReviewService } from '../../services/data-review.service';
-import { ResourceService } from '../../../resource-management/services/resource.service';
 import { Resource } from 'src/app/shared/interfaces/Resource.interface';
 
 @Component({

@@ -21,6 +21,7 @@
               <div class="etiqueta">Número Páginas:</div>
               <div class="etiqueta">Idioma:</div>
               <div class="etiqueta">Editorial:</div>
+              <div class="etiqueta">Rating:</div>
             </div>
             <div class="col-4">
               <div class="contenido">{{ magazine.numberMagazine }}</div>
@@ -30,6 +31,7 @@
               <div class="contenido">{{ magazine.pages }}</div>
               <div class="contenido">{{ magazine.language.name }}</div>
               <div class="contenido">{{ magazine.publisher.name }}</div>
+              <div class="contenido"><p-rating [(ngModel)]="averageRating" [cancel]="false" [stars]="10" [disabled]="true"></p-rating></div>
 
             </div>
           </div>

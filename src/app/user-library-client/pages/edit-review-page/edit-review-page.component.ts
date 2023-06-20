@@ -51,18 +51,6 @@ export class EditReviewPageComponent implements OnInit{
       }
 
 
-
-    /*
-      editReview(id:number){
-        this.reviewService.getReviewById(id).subscribe ({
-        next: (value) =>{
-          this.editMode(value);
-        },
-        error: (e) => this.messageService.add({severity:'error',summary:'Error',detail:'El libro no se ha podido cargar. Intente más tarde'}),
-        complete: () => this.messageService.add({severity:'success',summary:'Success',detail:'Libro cargado con éxito'})
-      })
-    }*/
-
     updateReview(){
       this.formToReview();
       this.reviewService.updateReview(this.review).subscribe ({
@@ -93,7 +81,7 @@ export class EditReviewPageComponent implements OnInit{
       title:reviewFormValues.title,
       comment:reviewFormValues.comment,
       rating:reviewFormValues.rating,
-      resourceId:this.review.id!,
+      resourceId:this.review.resourceId,
       userId:this.user.id!,
     }
 

@@ -23,6 +23,7 @@ export class ViewMagazinePageComponent implements OnInit{
   public title:string='Ficha Revista';
   public titleCopy:string='Copias';
   public titleComment:string='Comentarios';
+  public averageRating:number;
   public onUpdateBooking: EventEmitter<void> = new EventEmitter<void>;
 
   constructor(
@@ -34,6 +35,7 @@ export class ViewMagazinePageComponent implements OnInit{
     this.magazine = dataMagazine.getMagazine;
     this.user = JSON.parse(sessionStorage.getItem('loggedInUser')!);
     this.copies = this.magazine.copies!;
+    this.averageRating = this.magazine.rating!;
   }
 
   ngOnInit(): void {

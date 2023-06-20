@@ -23,6 +23,7 @@ export class ViewMoviePageComponent implements OnInit{
   public title:string='Ficha Película';
   public titleCopy:string='Copias';
   public titleComment:string='Comentarios';
+  public averageRating:number;
   public onUpdateBooking: EventEmitter<void> = new EventEmitter<void>;
 
   constructor(
@@ -33,6 +34,7 @@ export class ViewMoviePageComponent implements OnInit{
     this.movie = dataMovie.getMovie;
     this.user = JSON.parse(sessionStorage.getItem('loggedInUser')!);
     this.copies = this.movie.copies!;
+    this.averageRating = this.movie.rating!;
   }
 
   ngOnInit(): void {

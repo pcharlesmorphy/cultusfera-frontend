@@ -6,7 +6,7 @@ import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/a
 import { User } from 'src/app/user-management/interface/User.interface';
 import { DataResourceService } from 'src/app/shared/services/data-resource.service';
 import { Resource } from 'src/app/shared/interfaces/Resource.interface';
-import { timeout } from 'rxjs';
+
 
 @Component({
   selector: 'shared-albums-table',

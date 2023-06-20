@@ -75,10 +75,7 @@
                   icon="pi pi-eye" styleClass="p-button-rounded p-button-info p-button-outlined"
                   (onClick)="showCopiesModal(resource.id)"></p-button>
             </td>
-              <p-dialog [(visible)]="isVisibleCopiesModal"
-                [style]="{width: '60vw',height:'30vw'}"
-                *ngIf="isVisibleCopiesModal"
-                >
+              <p-dialog [(visible)]="isVisibleCopiesModal" [style]="{width: '60vw',height:'30vw'}">
                 <app-view-copies-resource-modal [copies]="this.copies"></app-view-copies-resource-modal>
               </p-dialog>
 

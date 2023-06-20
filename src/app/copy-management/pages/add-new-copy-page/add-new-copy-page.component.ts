@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ResourceService } from '../../../resource-management/services/resource.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Resource } from 'src/app/shared/interfaces/Resource.interface';
-import { Book } from 'src/app/resource-management/books-management/interfaces/Book.interface';
 import { Table } from 'primeng/table';
-import { Event } from '@angular/router';
 import { Copy } from '../../interfaces/Copy.interface';
+
 
 
 @Component({
@@ -15,14 +14,14 @@ import { Copy } from '../../interfaces/Copy.interface';
 })
 
 export class AddNewCopyPageComponent implements OnInit{
-  public resources: Resource[] = [];
+  public resources!: Resource[];
   public selectedResource!:Resource;
   public title:string = 'Añadir Copia';
   public loading: boolean = true;
   activityValues: number[] = [0, 100];
   public isVisibleNewCopyModal:boolean = false;
   public isVisibleCopiesModal:boolean = false;
-  public copies: Copy[] = [];
+  public copies!: Copy[];
   public resource!: Resource;
 
   constructor (
@@ -30,12 +29,12 @@ export class AddNewCopyPageComponent implements OnInit{
     private confirmationService:ConfirmationService,
     private messageService:MessageService) {}
 
+
+
   ngOnInit(): void {
 
     this.getResources();
     this.loading = false;
-
-
   }
 
 
@@ -64,6 +63,10 @@ export class AddNewCopyPageComponent implements OnInit{
           return;
         }
         this.copies = value;
+        setTimeout(()=>{
+          console.log("Lista Copias del Recurso tras clickar el boton del ojo: ", this.copies);
+        },2000);
+
       },
       error: (e) => this.messageService.add({severity:'error',summary:'Error',detail:'Las copias no se han podido cargar. Intente más tarde'}),
 
@@ -77,6 +80,7 @@ export class AddNewCopyPageComponent implements OnInit{
 
   showNewCopyModal(resource:Resource){
     this.selectedResource = resource;
+
     this.isVisibleNewCopyModal = true;
   }
 
@@ -84,5 +88,13 @@ export class AddNewCopyPageComponent implements OnInit{
     this.getResourcesCopies(idResource);
     this.isVisibleCopiesModal = true;
   }
+
+  handleCopyUpdate(copy:Copy){
+    this.isVisibleCopiesModal=false;
+    this.showCopiesModal(copy.resource.id!);
+    this.isVisibleCopiesModal=true;
+  }
+
+
 
 }

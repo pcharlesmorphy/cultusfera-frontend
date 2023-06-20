@@ -1,73 +1,74 @@
 
-  <div class="form-body">
-    <p-toast></p-toast>
-    <p-card [header]="title">
-      <ng-template pTemplate="header">
-          <div class="card-header"></div>
-      </ng-template>
+<div class="form-body">
+  <p-toast></p-toast>
+  <p-card [header]="title">
+    <ng-template pTemplate="header">
+        <div class="card-header"></div>
+    </ng-template>
 
-    <p-table [value]="copies" editMode="row" [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width:20%">Fecha de Registro</th>
-                <th style="width:20%">Fecha de Baja</th>
-                <th style="width:20%">Estado</th>
-                <th style="width:20%">Localización</th>
-                <th style="width:20%"></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-copy let-editing="editing" let-ri="rowIndex">
-            <tr [pEditableRow]="copy">
-                <td>
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <p-calendar [(ngModel)]="copy.registrationDate" appendTo="body" dateFormat="dd.mm.yy" [showIcon]="true" [showButtonBar]="true"></p-calendar>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{copy.registrationDate | date}}
-                        </ng-template>
-                    </p-cellEditor>
-                </td>
-                <td>
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                          <p-calendar [(ngModel)]="copy.dismissalDate" [showIcon]="true" appendTo="body" dateFormat="dd.mm.yy" [showButtonBar]="true"></p-calendar>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{copy.dismissalDate | date}}
-                        </ng-template>
-                    </p-cellEditor>
-                </td>
-                <td>
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <p-dropdown [options]="statusCopies" appendTo="body" [(ngModel)]="copy.status"  optionLabel="status"    [style]="{'width':'100%'}"></p-dropdown>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{copy.status.status}}
-                        </ng-template>
-                    </p-cellEditor>
-                </td>
-                <td>
+  <p-table [value]="copies" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header">
+          <tr>
+              <th style="width:20%">Fecha de Registro</th>
+              <th style="width:20%">Fecha de Baja</th>
+              <th style="width:20%">Estado</th>
+              <th style="width:20%">Localización</th>
+              <th style="width:20%"></th>
+
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-copy let-editing="editing" let-ri="rowIndex">
+          <tr [pEditableRow]="copy">
+              <td>
                   <p-cellEditor>
                       <ng-template pTemplate="input">
-                          <p-dropdown [options]="locations" appendTo="body" [(ngModel)]="copy.location" optionLabel="name" [style]="{'width':'100%'}"></p-dropdown>
+                          <p-calendar [(ngModel)]="copy.registrationDate" [disabled]="true" appendTo="body" dateFormat="dd.mm.yy" [showIcon]="true" [showButtonBar]="true"></p-calendar>
                       </ng-template>
                       <ng-template pTemplate="output">
-                          {{copy.location.name}}
+                          {{copy.registrationDate | date}}
                       </ng-template>
                   </p-cellEditor>
-                </td>
+              </td>
+              <td>
+                  <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <p-calendar [(ngModel)]="copy.dismissalDate" [disabled]="true" [showIcon]="true" appendTo="body" dateFormat="dd.mm.yy" [showButtonBar]="true"></p-calendar>
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                          {{copy.dismissalDate | date}}
+                      </ng-template>
+                  </p-cellEditor>
+              </td>
+              <td>
+                  <p-cellEditor>
+                      <ng-template pTemplate="input">
+                          <p-dropdown [options]="statusCopies" appendTo="body" [(ngModel)]="copy.status"  optionLabel="status" [style]="{'width':'100%'}"></p-dropdown>
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                          {{copy.status.status}}
+                      </ng-template>
+                  </p-cellEditor>
+              </td>
+              <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <p-dropdown [options]="locations" appendTo="body" [(ngModel)]="copy.location" optionLabel="name" [style]="{'width':'100%'}"></p-dropdown>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{copy.location.name}}
+                    </ng-template>
+                </p-cellEditor>
+              </td>
 
-                <td>
-                    <div class="flex align-items-center justify-content-center gap-2">
-                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(copy)" class="p-button-rounded p-button-text"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(copy)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(copy, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-  </p-card>
-  </div>
+              <td>
+                  <div class="flex align-items-center justify-content-center gap-2">
+                      <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(copy)" class="p-button-rounded p-button-text"></button>
+                      <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(copy)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                      <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(copy, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                  </div>
+              </td>
+          </tr>
+      </ng-template>
+  </p-table>
+</p-card>
+</div>

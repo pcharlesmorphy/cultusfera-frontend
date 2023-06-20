@@ -8,4 +8,5 @@ export interface Resource{
   copies?:          Copy[];
   reviews?:         Review[];
   type?:            string;
+  rating?:          number;
 }

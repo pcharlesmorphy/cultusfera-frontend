@@ -51,6 +51,7 @@ export class SearchAlbumPageComponent {
            if (resp.length > 0) {
               this.searchResult=true;
               this.albums = resp;
+              console.log('Respuesta pelicula por titulo: ',resp);
            }
         }
      });

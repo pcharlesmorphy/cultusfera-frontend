@@ -18,6 +18,7 @@
               <div class="etiqueta">Duración:</div>
               <div class="etiqueta">Año Publicación:</div>
               <div class="etiqueta">Discográfica:</div>
+              <div class="etiqueta">Rating:</div>
             </div>
             <div class="col-4">
               <div class="contenido">{{ album.musician.name}} {{album.musician.surnames }}</div>
@@ -25,6 +26,7 @@
               <div class="contenido">{{ album.duration }}</div>
               <div class="contenido">{{ album.publishedYear }}</div>
               <div class="contenido">{{ album.recordCompany.name }}</div>
+              <div class="contenido"><p-rating [(ngModel)]="averageRating" [cancel]="false" [stars]="10" [disabled]="true"></p-rating></div>
             </div>
         </div>
         <ng-template pTemplate="footer">

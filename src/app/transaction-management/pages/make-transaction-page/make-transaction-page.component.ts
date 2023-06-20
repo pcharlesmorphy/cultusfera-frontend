@@ -76,17 +76,24 @@ export class MakeTransactionPageComponent implements OnInit {
         });
       }
 
-      getLastCopyTransaction (transactions:Transaction[]):any{
-          let isLoanActive:boolean = true;
+      getLastCopyTransaction (transactions:Transaction[]):Transaction{
 
+          let isLoanActive:boolean = true;
+          let forCopyWithoutTransactions:Transaction = {
+              startDate:new Date(),
+              copyId:0,
+              userId:0,
+              status:{id:0,type:"Esta copia nunca ha tenido transacciones"}
+          }
           if (transactions.length === 0){
-              return ("La copia no tiene transacciones aún");
+             return forCopyWithoutTransactions;
           }
           let transaction:Transaction = transactions.at(transactions.length - 1)!;
 
           if (transaction.status?.type.includes("Reserva")) transaction = transactions.at(transactions.length - 2)!;
 
-          return transaction!;
+          return transaction;
+
 
       }
 

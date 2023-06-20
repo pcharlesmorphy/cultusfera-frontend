@@ -58,6 +58,7 @@ export class SearchBookPageComponent implements OnInit{
            if (resp.length > 0) {
               this.searchResult=true;
               this.books = resp;
+              console.log('Respuesta pelicula por titulo: ',resp);
            }
         }
      });

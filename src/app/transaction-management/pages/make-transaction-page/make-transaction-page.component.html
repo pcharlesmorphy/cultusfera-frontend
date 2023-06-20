@@ -96,7 +96,8 @@
                                               <td>
                                                 <ng-container *ngIf="copy.status.status !=='Reservado' ;else activeBooking">
                                                   <td>  <p-button (onClick)="showBookingModal(copy)"
-                                                    type="button" [disabled]="copy.status.status==='Disponible'"  label="Reservar" styleClass="p-button-raised p-button-warning p-button-sm"
+                                                    type="button" [disabled]="copy.status.status==='Disponible' || copy.status.status === 'Baja' || copy.status.status === 'Perdido'"
+                                                    label="Reservar" styleClass="p-button-raised p-button-warning p-button-sm"
                                                     ></p-button></td>
                                                 </ng-container>
                                                 <ng-template #activeBooking>
@@ -110,8 +111,8 @@
 
                                               </td>
                                               <td>
-                                                <p-button [disabled]="(copy.status.status !== 'Disponible')" label="Prestar"
-                                                styleClass="p-button-sm raised p-button-success p-button-sm"
+                                                <p-button [disabled]="(copy.status.status !== 'Disponible')"
+                                                label="Prestar" styleClass="p-button-sm raised p-button-success p-button-sm"
                                                 (onClick)="showLoanModal(copy)"
                                                 ></p-button>
                                               </td>
@@ -120,8 +121,9 @@
                                                 </p-dialog>
 
                                               <td>
-                                                <p-button [disabled]="copy.status.status === 'Disponible'" label="Devolver"
-                                                styleClass="p-button-sm raised p-button-info p-button-sm"
+                                                <p-button [disabled]="copy.status.status === 'Baja' || copy.status.status === 'Perdido' || copy.status.status === 'Disponible'
+                                                || (copy.status.status === 'Reservado' && getLastCopyTransaction(copy.transactions)?.status?.type === 'Prestamo finalizado')"
+                                                label="Devolver" styleClass="p-button-sm raised p-button-info p-button-sm"
                                                 (onClick)="returnLoan(copy.transactions)"
                                                 ></p-button>
                                               </td>

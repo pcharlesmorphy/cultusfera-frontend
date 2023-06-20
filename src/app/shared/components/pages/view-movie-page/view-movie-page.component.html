@@ -20,6 +20,7 @@
               <div class="etiqueta">Duración:</div>
               <div class="etiqueta">Año Publicación:</div>
               <div class="etiqueta">Idioma:</div>
+              <div class="etiqueta">Rating:</div>
             </div>
 
             <div class="col-4">
@@ -29,6 +30,7 @@
               <div class="contenido">{{ movie.duration }}</div>
               <div class="contenido">{{ movie.publishedYear }}</div>
               <div class="contenido">{{ movie.language.name }}</div>
+              <div class="contenido"><p-rating [(ngModel)]="averageRating" [cancel]="false" [stars]="10" [disabled]="true"></p-rating></div>
             </div>
           </div>
 

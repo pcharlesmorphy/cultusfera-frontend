@@ -1,6 +1,6 @@
 import { Component, Input} from '@angular/core';
 import { FrontendTransaction, Transaction } from 'src/app/historic-search/interfaces/Transaction.interface';
-
+import { User } from 'src/app/user-management/interface/User.interface';
 @Component({
   selector: 'shared-transactions-table',
   templateUrl: './transactions-table.component.html',
@@ -9,6 +9,5 @@ import { FrontendTransaction, Transaction } from 'src/app/historic-search/interf
 export class TransactionsTableComponent {
 
   @Input('transactions') transactions:FrontendTransaction[]=[];
-  @Input('title') title:string='';
 
 }

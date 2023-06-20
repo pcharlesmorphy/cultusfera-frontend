@@ -71,6 +71,16 @@ export class ResourceService {
     )
   }
 
+  getCopyById (id:number):Observable<Copy>{
+    return this.http.get<Copy>(`${this.baseUrl}/recursos/copia/${id}`)
+      .pipe(
+        catchError ( error => {
+          return throwError (() => error);
+        })
+    )
+  }
+
+
   addCopiesToResource () {
       return forkJoin([
         this.http.get(`${this.baseUrl}/recursos`),
