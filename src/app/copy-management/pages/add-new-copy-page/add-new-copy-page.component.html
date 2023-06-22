@@ -87,7 +87,7 @@
             </td>
 
             <p-dialog [(visible)]="isVisibleNewCopyModal" [style]="{width: '50vw'}">
-                <app-add-new-copy-modal [resource]="this.selectedResource"></app-add-new-copy-modal>
+                <app-add-new-copy-modal [resource]="this.selectedResource" (onCopyCreate)="handleCopyCreation()"></app-add-new-copy-modal>
             </p-dialog>
         </tr>
     </ng-template>

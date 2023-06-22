@@ -1,0 +1,39 @@
+<div class="form-body">
+  <p-toast></p-toast>
+  <p-card [header]="title">
+    <ng-template pTemplate="header">
+        <div class="card-header"></div>
+    </ng-template>
+
+  <p-table [value]="penalties" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header">
+          <tr>
+              <th style="width:20%">num</th>
+              <th style="width:20%">Fecha inicio</th>
+              <th style="width:20%">Fecha fin</th>
+              <th style="width:20%">Motivo</th>
+              <th style="width:20%">Comentarios</th>
+              <th style="width:20%"></th>
+
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-penalty let-editing="editing" let-ri="rowIndex">
+
+              <td>{{ri + 1}}</td>
+              <td>    {{penalty.startDate | date}}   </td>
+              <td>    {{penalty.endDate | date}} </td>
+              <td>    {{penalty.reason.reason }}  </td>
+              <td>    {{penalty.comments }}  </td>
+
+
+              <td>
+                  <div class="flex align-items-center justify-content-center gap-2">
+
+                  </div>
+              </td>
+
+      </ng-template>
+  </p-table>
+</p-card>
+</div>
+

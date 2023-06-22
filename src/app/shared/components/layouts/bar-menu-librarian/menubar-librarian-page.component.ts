@@ -103,6 +103,10 @@ export class MenuBarLibrarianPageComponent {
         label:'Gestión Transacciones',
         items : [{label:'Realizar Transacción',routerLink:'/gestion-transacciones'}]
       },
+      {
+        label:'Gestión Sanciones',
+        items : [{label:'Listar Usuarios',routerLink:'/gestion-sanciones/usuarios/listar'}]
+      },
     ];
 
     splitItems: MenuItem[] = [

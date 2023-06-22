@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ResourceService } from '../../../resource-management/services/resource.service';
-import { Component, DoCheck, Input } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
 import { Copy, StatusCopy, Location } from '../../interfaces/Copy.interface';
 import { FormGroup , FormBuilder, Validators} from '@angular/forms';
 import { Resource } from 'src/app/shared/interfaces/Resource.interface';
@@ -21,8 +21,10 @@ export class AddNewCopyModalComponent implements DoCheck{
   public locations:Location[] = [];
   public statusCopies:StatusCopy[] = [];
   public hasErrors!:boolean;
-
+  @Output() public onCopyCreate:EventEmitter<void>=new EventEmitter<void>;
   @Input() resource!:Resource;
+
+
 
   constructor (
     private fb:FormBuilder,
@@ -62,6 +64,7 @@ export class AddNewCopyModalComponent implements DoCheck{
         complete: () => {
           this.messageService.add({severity:'success',summary:'Success',detail:'Copia añadida con éxito'});
           this.newCopyForm.reset();
+          this.onCopyCreate.emit();
         }
       });
      }

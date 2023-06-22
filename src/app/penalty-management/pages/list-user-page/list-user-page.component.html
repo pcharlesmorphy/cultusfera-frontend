@@ -1,0 +1,82 @@
+<div class="form-body">
+<p-toast></p-toast>
+    <p-card [header]="title">
+      <ng-template pTemplate="header">
+          <div class="card-header"></div>
+      </ng-template>
+
+    <p-table
+    #dt1
+    [value]="users" editMode="row"
+    [tableStyle]="{'min-width': '50rem'}"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [globalFilterFields]="['surnames','nif']">
+
+
+    <ng-template pTemplate="caption">
+      <div class="flex">
+          <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+          <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value,'contains')" placeholder="Buscar Apellidos o Nif" />
+          </span>
+      </div>
+     </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:10%">Nombre</th>
+                <th style="width:15%">Apellidos</th>
+                <th style="width:15%">Domicilio</th>
+                <th style="width:10%">Email</th>
+                <th style="width:10%">Nif</th>
+                <th style="width:10%">Teléfono</th>
+                <th style="width:10%">Sancionado</th>
+                <th style="width:10%">Acciones</th>
+                <th></th>
+
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-user let-ri="rowIndex">
+            <tr>
+               <td>{{user.name}}</td>
+               <td>{{user.surnames}}</td>
+               <td>{{user.address}}</td>
+               <td>{{user.email}}</td>
+               <td>{{user.nif}}</td>
+               <td>{{user.phone}}</td>
+               <td>{{user.suspended}}</td>
+               <td>
+                        <div class="flex align-items-center justify-content-center gap-2">
+                            <p-button label="Lista Sanciones"  styleClass="p-button-info p-button-sm" (onClick)="showCopiesModal(user.id)"></p-button>
+                            <td></td><td></td><td></td>
+                            <ng-container *ngIf="user.suspended;else sinSancion">
+                              <p-button label="Nueva Sanción" [disabled]="true" styleClass="p-button-danger p-button-sm"></p-button>
+                            </ng-container>
+                            <ng-template #sinSancion>
+                              <p-button label="Nueva Sanción" styleClass="p-button-danger p-button-sm" (onClick)="showNewPenaltyModal(user)"></p-button>
+                            </ng-template>
+                        </div>
+               </td>
+
+               <p-dialog [(visible)]="isVisibleNewPenaltyModal" [style]="{width: '60vw',height:'35vw'}">
+                <app-add-new-penalty-modal-page [user]="this.selectedUser" (onUpdatePenalty)="handleUserUpdate()"></app-add-new-penalty-modal-page>
+               </p-dialog>
+
+               <p-dialog [(visible)]="isVisiblePenaltiesModal" [style]="{width: '60vw',height:'40vw'}">
+                <app-view-user-penalties-modal-page [penalties]="this.penalties"></app-view-user-penalties-modal-page>
+               </p-dialog>
+
+
+
+
+            </tr>
+        </ng-template>
+    </p-table>
+  </p-card>
+</div>

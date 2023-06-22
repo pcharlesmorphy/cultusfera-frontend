@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter} from '@angular/core';
 import { ResourceService } from '../../../resource-management/services/resource.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Resource } from 'src/app/shared/interfaces/Resource.interface';
@@ -18,11 +18,11 @@ export class AddNewCopyPageComponent implements OnInit{
   public selectedResource!:Resource;
   public title:string = 'Añadir Copia';
   public loading: boolean = true;
-  activityValues: number[] = [0, 100];
   public isVisibleNewCopyModal:boolean = false;
   public isVisibleCopiesModal:boolean = false;
   public copies!: Copy[];
   public resource!: Resource;
+  public onCopyUpdate: EventEmitter<void>=new EventEmitter<void>;
 
   constructor (
     private resourceService:ResourceService,
@@ -35,6 +35,9 @@ export class AddNewCopyPageComponent implements OnInit{
 
     this.getResources();
     this.loading = false;
+    this.onCopyUpdate.subscribe(()=>{
+       this.handleCopyCreation();
+    })
   }
 
 
@@ -89,12 +92,15 @@ export class AddNewCopyPageComponent implements OnInit{
     this.isVisibleCopiesModal = true;
   }
 
+  /*
   handleCopyUpdate(copy:Copy){
     this.isVisibleCopiesModal=false;
     this.showCopiesModal(copy.resource.id!);
     this.isVisibleCopiesModal=true;
+  }*/
+
+  handleCopyCreation(){
+      this.isVisibleNewCopyModal=false;
   }
-
-
 
 }

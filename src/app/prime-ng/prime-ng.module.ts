@@ -23,7 +23,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { RatingModule } from 'primeng/rating';
 import { TagModule } from 'primeng/tag';
 import { DataViewModule } from 'primeng/dataview';
-import { MessageModule} from 'primeng/message'
+import { MessageModule} from 'primeng/message'
 import { InputMaskModule } from 'primeng/inputmask';
 
 

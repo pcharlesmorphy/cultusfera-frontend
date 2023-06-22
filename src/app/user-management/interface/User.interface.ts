@@ -11,6 +11,8 @@ export interface User{
   password?:             string;
   registrationDate:      Date;
   role:                  UserRole;
+  suspended?:             boolean;
+  //penalties?:            Penalty[];
 
 }
 

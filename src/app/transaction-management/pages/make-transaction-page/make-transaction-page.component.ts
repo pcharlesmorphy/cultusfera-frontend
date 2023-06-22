@@ -175,6 +175,8 @@ export class MakeTransactionPageComponent implements OnInit {
 
     handleTransactionUpdate(){
       this.getResources();
+      this.isVisibleLoanModal = false;
+      this.isVisibleBookingModal = false;
     }
 
   }

@@ -60,10 +60,19 @@ const routes: Routes = [
     loadChildren: () => import('./user-library-client/user-library-client.module').then(m => m.UserLibraryClientModule)
   },
   {
+    path: 'gestion-sanciones',
+    canActivate:[IsLoggedGuard,HasRoleGuard],
+    data:{
+      allowedRoles:'Librarian'
+    },
+    loadChildren: () => import('./penalty-management/penalty-management.module').then(m => m.PenaltyManagementModule)
+  },
+  {
     path:'',
     redirectTo:'login',
     pathMatch:'full'
   },
+
   {
     path:'**',
     redirectTo:'login'
