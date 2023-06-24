@@ -157,11 +157,13 @@ export class NewAlbumPageComponent implements OnInit,DoCheck{
 
     onCreateMusicianHandler(musician:Musician){
       this.getMusicians();
+      this.isVisibleMusicianModal=false;
     }
 
     onCreateRecordCompanyHandler(recordCompany:RecordCompany){
 
       this.getRecordCompanies();
+      this.isVisibleRecordCompanyModal=false;
     }
 
 

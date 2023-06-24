@@ -4,7 +4,17 @@
           <div class="card-header"></div>
       </ng-template>
 
-    <p-table [value]="users" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+    <p-table
+        [value]="users" editMode="row"
+        [tableStyle]="{'min-width': '50rem'}"
+        [paginator]="true"
+            [rows]="10"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas"
+            [rowsPerPageOptions]="[10, 25, 50]">
+
+        >
         <ng-template pTemplate="header">
             <tr>
                 <th style="width:10%">Username</th>

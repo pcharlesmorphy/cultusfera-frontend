@@ -37,7 +37,7 @@ export class NewActorPageComponent implements DoCheck {
   ngOnInit(): void {
 
     this.route.queryParams.subscribe (params => {
-      this.idActor = params['id'];
+      this.idActor = params['idActor'];
       if (this.idActor !== undefined){
         this.isEdit = true;
       }

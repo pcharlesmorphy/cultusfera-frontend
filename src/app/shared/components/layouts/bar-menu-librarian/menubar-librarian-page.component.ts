@@ -116,7 +116,7 @@ export class MenuBarLibrarianPageComponent {
       },
       { separator:true },
       {
-          label:'Logout',
+          label:'Cerrar Sesión',
           icon:'pi pi-sign-out',
           command: () => {
             this.logout();

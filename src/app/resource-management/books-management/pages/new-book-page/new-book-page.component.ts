@@ -142,11 +142,13 @@ export class NewBookPageComponent implements OnInit, DoCheck{
 
   onCreateWriterHandler(writer:Writer){
       this.getWriters();
+      this.isVisibleWriterModal=false;
   }
 
   onCreateBookPublisherHandler(publisher:BookPublisher){
 
     this.getPublishers();
+    this.isVisiblePublisherModal=false;
   }
   formToBook ():void{
 

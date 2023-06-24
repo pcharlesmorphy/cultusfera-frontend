@@ -11,7 +11,7 @@
             [rows]="5"
             [showCurrentPageReport]="true"
             [tableStyle]="{ 'min-width': '50rem' }"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas"
             [rowsPerPageOptions]="[10, 25, 50]"
 
         >
@@ -30,7 +30,7 @@
                     <td>{{ writer.surnames}}</td>
 
                     <td><p-button [routerLink]="'/gestion-recursos/libros/escritores/editar'"
-                      [queryParams]="{id:writer.id}"
+                      [queryParams]="{idEscritor:writer.id}"
                       type="button"
                       icon="pi pi-file-edit" styleClass="p-button-rounded p-button-help p-button-outlined"></p-button></td>
                     <td><p-button type="button" icon="pi pi-times" styleClass="p-button-rounded p-button-danger p-button-outlined" (onClick)="confirmDelete(writer)"></p-button></td>

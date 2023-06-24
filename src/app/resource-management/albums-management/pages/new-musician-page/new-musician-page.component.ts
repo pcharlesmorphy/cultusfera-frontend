@@ -37,7 +37,7 @@ export class NewMusicianPageComponent implements DoCheck {
   ngOnInit(): void {
 
     this.route.queryParams.subscribe (params => {
-      this.idMusician = params['id'];
+      this.idMusician = params['idMusico'];
       if (this.idMusician !== undefined){
         this.isEdit = true;
       }

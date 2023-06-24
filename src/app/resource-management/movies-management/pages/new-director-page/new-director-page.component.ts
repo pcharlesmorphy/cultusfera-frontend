@@ -36,7 +36,7 @@ export class NewDirectorPageComponent implements DoCheck {
   ngOnInit(): void {
 
     this.route.queryParams.subscribe (params => {
-      this.idDirector = params['id'];
+      this.idDirector = params['idDirector'];
       if (this.idDirector !== undefined){
         this.isEdit = true;
       }

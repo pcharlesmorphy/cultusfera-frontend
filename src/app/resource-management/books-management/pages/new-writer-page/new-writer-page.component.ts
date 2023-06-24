@@ -40,7 +40,7 @@ export class NewWriterPageComponent implements DoCheck{
 
 
     this.route.queryParams.subscribe (params => {
-      this.idWriter = params['id'];
+      this.idWriter = params['idEscritor'];
       if (this.idWriter !== undefined){
         this.isEdit = true;
       }
@@ -67,7 +67,6 @@ export class NewWriterPageComponent implements DoCheck{
   saveWriter(){
       this.checkFormMessage();
       if (!this.hasErrors){
-        console.log("No hay errores");
         this.formToWriter();
         this.writerService.addWriter(this.writer).subscribe ({
           error: (e) => this.messageService.add({severity:'error',summary:'Error',detail:e.error}),
@@ -114,13 +113,11 @@ export class NewWriterPageComponent implements DoCheck{
       name:writerFormValues.name,
       surnames:writerFormValues.surnames,
     }
-
-    console.log (this.writer);
   }
 
   setTitle ():void{
-    if (this.isEdit) this.title='Modificar Autor';
-    else this.title='Nuevo Autor'
+    if (this.isEdit) this.title='Modificar Escritor';
+    else this.title='Nuevo Escritor'
   }
 
     resetForm ():void {
@@ -128,8 +125,6 @@ export class NewWriterPageComponent implements DoCheck{
     }
 
     editMode(writer:Writer):void {
-      console.log(writer);
-
       this.newWriterForm.setValue({
       name:writer.name,
       surnames:writer.surnames,

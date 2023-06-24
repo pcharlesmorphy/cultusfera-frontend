@@ -30,10 +30,10 @@
           <div class="flex flex-row flex-wrap card-container blue-container gap-3">
               <p-button
               *ngIf="!isEdit"
-              type="submit" styleClass="p-button-success" label="Create"
+              type="submit" styleClass="p-button-success" label="Crear"
               (onClick)="saveWriter()"></p-button>
-              <p-button *ngIf="isEdit" label="Modify" styleClass="p-button-warning" (onClick)="updateWriter()"></p-button>
-              <p-button label="Clean" styleClass="p-button-danger" icon="pi pi-eraser" iconPos="left" (onClick)="resetForm()"></p-button>
+              <p-button *ngIf="isEdit" label="Modificar" styleClass="p-button-warning" (onClick)="updateWriter()"></p-button>
+              <p-button label="Limpiar" styleClass="p-button-danger" icon="pi pi-eraser" iconPos="left" (onClick)="resetForm()"></p-button>
           </div>
       </ng-template>
   </p-card>

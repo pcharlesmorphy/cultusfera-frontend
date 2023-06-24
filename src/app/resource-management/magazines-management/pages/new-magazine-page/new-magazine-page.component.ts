@@ -115,6 +115,7 @@ export class NewMagazinePageComponent implements OnInit,DoCheck{
 
   onCreateMagazinePublisherHandler(publisher:MagazinePublisher){
       this.getPublishers();
+      this.isVisiblePublisherModal=false;
   }
 
   showPublisherModal(){

@@ -30,7 +30,7 @@ export class LoginPageComponent {
       username: [''],
       password: [''],
     });
-    this.title = 'Login User';
+    this.title = 'Pantalla de Inicio';
   }
 
   public resetForm(): void {

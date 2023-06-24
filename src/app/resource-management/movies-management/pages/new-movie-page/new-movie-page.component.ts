@@ -25,8 +25,8 @@ export class NewMoviePageComponent implements OnInit, DoCheck{
   public title:string = '';
   public isEdit:boolean=false;
   public idMovie:number=0;
-  public isVisibleDirectorModal!:boolean;
-  public isVisibleActorModal!:boolean;
+  public isVisibleDirectorModal:boolean=false;
+  public isVisibleActorModal:boolean=false;
   public hasErrors!:boolean;
 
   constructor (
@@ -50,8 +50,8 @@ export class NewMoviePageComponent implements OnInit, DoCheck{
     this.setTitle();
     this.genres = this.movieService.getGenres;
 
-    this.languages = this.movieService.getLanguages
-
+    this.languages = this.movieService.getLanguages;
+    console.log("Antes de actores y directores?");
     this.getDirectors();
 
     this.getActors();
@@ -66,10 +66,7 @@ export class NewMoviePageComponent implements OnInit, DoCheck{
       pubYear:[null,[Validators.required]],
       synopsis:['']
     });
-
-
-
-
+    console.log("Antes del modo edición");
 
     if (this.isEdit){
         this.editMovie(this.idMovie);
@@ -85,7 +82,6 @@ export class NewMoviePageComponent implements OnInit, DoCheck{
       this.checkFormMessage();
       if (!this.hasErrors){
           this.formToMovie();
-          console.log('Grabamos Pelicula',this.movie);
           this.movieService.addMovie(this.movie).subscribe ({
             error: (e) => this.messageService.add({severity:'error',summary:'Error',detail:e.error}),
             complete: () => {
@@ -97,6 +93,7 @@ export class NewMoviePageComponent implements OnInit, DoCheck{
   }
 
   editMovie(id:number){
+      console.log("Ya entramos en metodo editMovie");
       this.movieService.getMovieById(id).subscribe ({
       next: (value) =>{
         this.editMode(value);
@@ -168,7 +165,6 @@ export class NewMoviePageComponent implements OnInit, DoCheck{
       synopsis:movieFormValues.synopsis
     }
 
-    console.log(this.movie);
   }
 
   setTitle ():void{
@@ -188,21 +184,23 @@ export class NewMoviePageComponent implements OnInit, DoCheck{
 
   onCreateDirectorHandler(director:Director){
 
-    this.getDirectors();
+      this.getDirectors();
+      this.isVisibleDirectorModal=false;
   }
 
- onCreateActorHandler(actor:Actor){
+  onCreateActorHandler(actor:Actor){
 
-    this.getActors();
-    }
+      this.getActors();
+      this.isVisibleActorModal=false;
+  }
 
-    resetForm ():void {
-      this.newMovieForm.reset();
-    }
+      resetForm ():void {
+        this.newMovieForm.reset();
+      }
 
 
     editMode(movie:Movie):void {
-      console.log(movie);
+      console.log ("Modo edición");
       const director= {
         ...movie.director,
         nameSelect: movie.director.surnames + ' , ' + movie.director.name
@@ -216,7 +214,6 @@ export class NewMoviePageComponent implements OnInit, DoCheck{
         };
       });
       let yearDatePicker:Date = new Date(movie.publishedYear,0,1);
-      console.log(actors);
       this.newMovieForm.setValue({
       title:movie.title,
       director:director,
@@ -228,7 +225,6 @@ export class NewMoviePageComponent implements OnInit, DoCheck{
       synopsis:movie.synopsis
     });
 
-    console.log(movie.actors);
   }
 
 
