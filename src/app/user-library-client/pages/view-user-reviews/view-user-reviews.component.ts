@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Review } from '../../interfaces/Review.interface';
 import { User } from 'src/app/user-management/interface/User.interface';
 import { ReviewService } from '../../services/review.service';
@@ -64,7 +64,7 @@ export class ViewUserReviewsComponent implements OnInit{
             switch (type) {
                 case ConfirmEventType.REJECT:
                 case ConfirmEventType.CANCEL:
-                    this.messageService.add({ severity: 'error', summary: 'Cancelled', detail: `Cancelaste eliminarla review` });
+                    this.messageService.add({ severity: 'error', summary: 'Cancelled', detail: `Cancelaste eliminar la review` });
                     break;
             }
         }
@@ -77,7 +77,17 @@ export class ViewUserReviewsComponent implements OnInit{
 
       this.review = review;
       this.dataReviewService.review = review;
-      console.log (this.dataReviewService.review);
       this.isVisibleEditReviewModal = true;
+    }
+
+    handleOnUpdateReview(review:Review){
+
+      this.getReviewsByUser();
+      this.isVisibleEditReviewModal=false;
+      setTimeout(()=>{
+        this.messageService.add({severity:'success',summary:'Success',detail:'Review actualizada con éxito'});
+      },2000);
+
+
     }
 }

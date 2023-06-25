@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { StatusCopy, Copy } from 'src/app/copy-management/interfaces/Copy.interface';
 import { ResourceService } from 'src/app/resource-management/services/resource.service';
 import { Penalty } from '../../interfaces/penalty.interface';
 
@@ -19,10 +18,5 @@ export class ViewUserPenaltiesModalPageComponent {
     private messageService: MessageService
 
     ) {}
-
-
-  ngOnInit(): void {
-      console.log(this.penalties);
-  }
 
 }

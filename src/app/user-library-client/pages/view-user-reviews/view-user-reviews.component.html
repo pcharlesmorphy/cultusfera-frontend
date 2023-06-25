@@ -39,10 +39,10 @@
                               (onClick)="showEditReviewsModal(review)"></p-button></td>
 
                               <p-dialog [(visible)]="isVisibleEditReviewModal"
-                              [style]="{width: '60vw',height:'60vw'}"
+                              [style]="{width: '30vw',height:'35vw'}"
                               *ngIf="isVisibleEditReviewModal"
                               >
-                              <app-edit-review-page></app-edit-review-page>
+                              <app-edit-review-page (onUpdateReview)="handleOnUpdateReview($event)"></app-edit-review-page>
 
                             </p-dialog>
 
